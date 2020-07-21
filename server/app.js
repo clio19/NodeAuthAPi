@@ -1,7 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+if (process.env.NODE_ENV === 'test') {
+  mongoose.connect('mongodb://localhost/APIAuthenticationTEST', {
+    useNewUrlParser: true,
+  });
+} else {
+  mongoose.connect('mongodb://localhost/APIAuthentication', {
+    useNewUrlParser: true,
+  });
+}
 const app = express();
 
 // Middlewares
