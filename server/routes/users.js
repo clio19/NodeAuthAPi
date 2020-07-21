@@ -10,12 +10,10 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 
 router
   .route("/signup")
-  // .post(validateBody(schemas.authSchema), UsersController.signUp);
-  .post(UsersController.signUp);
+  .post(validateBody(schemas.authSchema), UsersController.signUp);
 
 router.route("/signin").post(
-  // validateBody(schemas.authSchema),
-  // validateBody(),
+  validateBody(schemas.authSchema),
   passportSignIn,
   UsersController.signIn
 );
