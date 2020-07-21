@@ -49,4 +49,11 @@ module.exports = {
     console.log("I managed to get here!");
     res.json({ secret: "resource" });
   },
+
+  googleOAuth: async (req, res, next) => {
+    // Generate token
+    console.log('got here');
+    const token = signToken(req.user);
+    res.status(200).json({ token });
+  },
 };

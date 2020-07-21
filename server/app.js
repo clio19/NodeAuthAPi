@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'test') {
@@ -14,20 +17,22 @@ if (process.env.NODE_ENV === 'test') {
   });
 }
 const app = express();
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+);
+
 
 // Middlewares
-app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Middlewares moved morgan into if for clear tests
+if (!process.env.NODE_ENV === "test") {
+  app.use(morgan("dev"));
+}
 
 
-// Routes
-app.use('/users', require('./routes/users'));
-
-// Start the server
-const port = process.env.PORT || 8080;
-app.listen(port);
-
-console.log('====================================');
-console.log(`Server listening at ${port}`);
-console.log('====================================');
+module.exports = app;

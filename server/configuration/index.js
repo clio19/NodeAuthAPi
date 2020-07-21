@@ -1,3 +1,13 @@
+
 module.exports = {
-  JWT_SECRET: 'tecdreamsauthentication',
+  JWT_SECRET: 'Tecdreamsauthentication',
+  oauth: {
+    google: {
+      clientID: '',
+      clientSecret: ''
+    },
+    facebook: {
+
+    }
+  }
 };
