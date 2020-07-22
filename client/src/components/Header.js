@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Header extends Component {
+import * as actions from "../redux/actions";
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.signOut = this.signOut.bind(this);
+  }
+
+  signOut() {
+    this.props.signOut();
+  }
   render() {
     return (
       <nav
@@ -50,3 +61,11 @@ export default class Header extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuth: state.auth.isAuthenticated,
+  };
+}
+
+export default connect(mapStateToProps, actions)(Header);

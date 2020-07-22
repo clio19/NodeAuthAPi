@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { AUTH_SIGN_UP, AUTH_ERROR } from "./types";
+import { AUTH_SIGN_UP, AUTH_ERROR, AUTH_SIGN_OUT } from "./types";
 
 /*
   ActionCreators -> create/return Actions ({ }) -> dispatched -> middlewares -> reducers
@@ -26,11 +26,25 @@ export const signUp = (data) => {
       });
 
       localStorage.setItem("JWT_TOKEN", res.data.token);
-    } catch (error) {
+    } catch (err) {
+      console.log("====================================");
+      console.log(err.message);
+      console.log("====================================");
       dispatch({
         type: AUTH_ERROR,
-        payload: "Email is already in use!",
+        payload: "Email error try another one!",
       });
     }
+  };
+};
+
+export const signOut = () => {
+  return (dispatch) => {
+    localStorage.removeItem("JWT_TOKEN");
+
+    dispatch({
+      type: AUTH_SIGN_OUT,
+      payload: "",
+    });
   };
 };

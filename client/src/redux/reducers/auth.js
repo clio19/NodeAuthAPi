@@ -1,4 +1,4 @@
-import { AUTH_SIGN_UP, AUTH_ERROR } from "../actions/types";
+import { AUTH_SIGN_UP, AUTH_ERROR, AUTH_SIGN_OUT } from "../actions/types";
 
 const DEFAULT_STATE = {
   isAuthenticated: false,
@@ -17,11 +17,17 @@ const authReducer = (state = DEFAULT_STATE, action) => {
         isAuthenticated: true,
         errorMessage: "",
       };
+    case AUTH_SIGN_OUT:
+      return {
+        ...state,
+        token: action.payload,
+        isAuthenticated: false,
+        errorMessage: "",
+      };
     case AUTH_ERROR:
       console.log("[Auth Reducer] AUTH_ERROR reducer called");
       return {
         ...state,
-        isAuthenticated: false,
         errorMessage: action.payload,
       };
     default:

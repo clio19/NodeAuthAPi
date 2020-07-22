@@ -15,8 +15,21 @@ import Dashboard from "./components/Dashboard";
 
 import reducers from "./redux/reducers";
 
+const jwtToken = localStorage.getItem("JWT_TOKEN");
+
 ReactDOM.render(
-  <Provider store={createStore(reducers, {}, applyMiddleware(reduxThunk))}>
+  <Provider
+    store={createStore(
+      reducers,
+      {
+        auth: {
+          token: jwtToken,
+          isAuthenticated: jwtToken ? true : false,
+        },
+      },
+      applyMiddleware(reduxThunk)
+    )}
+  >
     <BrowserRouter>
       <App />
       <Route exact path="/" component={Home} />
