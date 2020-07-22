@@ -1,6 +1,12 @@
 import axios from "axios";
 
-import { AUTH_SIGN_UP, AUTH_ERROR, AUTH_SIGN_OUT } from "./types";
+import {
+  AUTH_SIGN_UP,
+  AUTH_ERROR,
+  AUTH_SIGN_OUT,
+  AUTH_SIGN_IN,
+  DASHBOARD_GET_DATA,
+} from "./types";
 
 /*
   ActionCreators -> create/return Actions ({ }) -> dispatched -> middlewares -> reducers
@@ -46,5 +52,74 @@ export const signOut = () => {
       type: AUTH_SIGN_OUT,
       payload: "",
     });
+  };
+};
+
+export const signIn = (data) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post("http://localhost:5000/users/signin", data);
+
+      dispatch({
+        type: AUTH_SIGN_IN,
+        payload: res.data.token,
+      });
+
+      localStorage.setItem("JWT_TOKEN", res.data.token);
+      axios.defaults.headers.common["Authorization"] = res.data.token;
+    } catch (err) {
+      console.log("ERROR !", err);
+      dispatch({
+        type: AUTH_ERROR,
+        payload: "Email or password combination isn't valid",
+      });
+    }
+  };
+};
+
+export const oauthGoogle = (data) => {
+  return async (dispatch) => {
+    const res = await axios.post("http://localhost:5000/users/oauth/google", {
+      access_token: data,
+    });
+
+    dispatch({
+      type: AUTH_SIGN_UP,
+      payload: res.data.token,
+    });
+
+    localStorage.setItem("JWT_TOKEN", res.data.token);
+    axios.defaults.headers.common["Authorization"] = res.data.token;
+  };
+};
+
+export const oauthFacebook = (data) => {
+  return async (dispatch) => {
+    const res = await axios.post("http://localhost:5000/users/oauth/facebook", {
+      access_token: data,
+    });
+
+    dispatch({
+      type: AUTH_SIGN_UP,
+      payload: res.data.token,
+    });
+
+    localStorage.setItem("JWT_TOKEN", res.data.token);
+    axios.defaults.headers.common["Authorization"] = res.data.token;
+  };
+};
+
+export const getSecret = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get("http://localhost:5000/users/secret");
+
+      dispatch({
+        type: DASHBOARD_GET_DATA,
+        payload: res.data.secret,
+      });
+    } catch (err) {
+      console.error("err", err);
+    }
   };
 };

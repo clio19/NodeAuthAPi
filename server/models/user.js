@@ -13,10 +13,9 @@ const userSchema = new Schema({
     email: {
       type: String,
       lowercase: true,
-      unique: true,
-      required: "Please enter your email",
+      // unique: true,
+      // required: "Please enter your email",
       // trim: true,
-      lowercase: true,
       // validate: [
       //   { validator: (value) => isEmail(value), msg: "Invalid email." },
       // ],
@@ -70,7 +69,8 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.isValidPassword = async function (newPassword) {
   try {
-    return await bcrypt.compare(newPassword, this.password);
+    // return await bcrypt.compare(newPassword, this.password);
+    return await bcrypt.compare(newPassword, this.local.password);
   } catch (error) {
     throw new Error(error);
   }
