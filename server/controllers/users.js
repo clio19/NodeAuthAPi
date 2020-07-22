@@ -21,13 +21,27 @@ module.exports = {
 
     const { email, password } = req.body; // ou rea.value.body on POSTman
     // Check for  a user with the same email
-    const foundUser = await User.findOne({ email });
+    // const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({
+      "local.email": email,
+    });
+
     if (foundUser) {
-      return res.status(403).json({ error: "Email is already in use" });
+      return res.status(403).json({
+        error: "Email is already in use",
+      });
     }
 
     // Create a new user
-    const newUser = new User({ email, password });
+    // const newUser = new User({ email, password });
+    // Create a new user
+    const newUser = new User({
+      method: "local",
+      local: {
+        email: email,
+        password: password,
+      },
+    });
     await newUser.save();
 
     // Respond with token
