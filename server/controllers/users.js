@@ -63,7 +63,7 @@ module.exports = {
 
   secret: async (req, res, next) => {
     console.log("I managed to get here!");
-    res.json({ secret: "resource" });
+    res.json({ secret: "Now You can see me !" });
   },
 
   googleOAuth: async (req, res, next) => {

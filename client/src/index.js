@@ -15,7 +15,11 @@ import Dashboard from "./components/Dashboard";
 
 import reducers from "./redux/reducers";
 
+import authGuard from "./components/HOC/authGuard";
+import axios from "axios";
+
 const jwtToken = localStorage.getItem("JWT_TOKEN");
+axios.defaults.headers.common["Authorization"] = jwtToken;
 
 ReactDOM.render(
   <Provider
@@ -35,7 +39,7 @@ ReactDOM.render(
       <Route exact path="/" component={Home} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/dashboard" component={authGuard(Dashboard)} />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
