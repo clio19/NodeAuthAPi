@@ -6,13 +6,21 @@ This is a client (react) server (Node) API
 
 > Modern Full-Stack Starter/Tutorial Using React/Redux/Node/Mongoose.
 
+M - Mongo
+E - Express
+R - React
+N - NodeJS
+
 This is the project files for tecdreams's API Authentication with Node.
 
-[x] Phase I - Backend
+- [x] Phase I - Backend
 
-[] Phase II - Frontend
+- [x] Phase II - Frontend
 
 [] Phase III - Improvements!
+
+- [x] Link Facebook and Google to local Account
+- [] Change localstorage to Session Cookies
 
 ### To view this branch simply clone this git repo
 
@@ -73,6 +81,18 @@ run unit tests with nyc summery report
 
 ```bash
 $ yarn text-report
+```
+
+Check npm updates (Globally)
+
+```bash
+$ npm i -g npm-check-updates
+```
+
+or
+
+```bash
+$ npx npm-check-updates
 ```
 
 # Security Policy
