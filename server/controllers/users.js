@@ -188,6 +188,6 @@ module.exports = {
 
   secret: async (req, res, next) => {
     console.log("I managed to get here!");
-    res.json({ secret: "Now You can see me !" });
+    res.json({ secret: "resource" });
   },
 };
