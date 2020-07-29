@@ -17,10 +17,13 @@ This is the project files for tecdreams's API Authentication with Node.
 
 - [x] Phase II - Frontend
 
-[] Phase III - Improvements!
+- [x] Phase III - Improvements!
 
-- [x] Link Facebook and Google to local Account
-- [] Change localstorage to Session Cookies
+  - [x] Link Facebook and Google to local Account
+  - [ ] Change localstorage to Session Cookies
+    - [ ] Backend sends cookie after auth
+    - [ ] Cokie is set to be httpOnly
+    - [ ] FrontEnd checks is user is Auth on refresh page or load
 
 ### To view this branch simply clone this git repo
 
@@ -116,4 +119,4 @@ $ npx npm-check-updates
 | routes      | 100     | 100      | 100     | 100     |                 |
 | users.js    | 100     | 100      | 100     | 100     |                 |
 
-## Thank You!
+## Thank You For your Visit!
