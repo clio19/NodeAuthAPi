@@ -38,7 +38,7 @@ export const signUp = (data) => {
       console.log("[action creator] dispatched called");
       dispatch({
         type: AUTH_SIGN_UP,
-        payload: res.data.token,
+        // payload: res.data.token,
       });
 
       // localStorage.setItem("JWT_TOKEN", res.data.token);
@@ -60,7 +60,7 @@ export const signOut = () => {
 
     dispatch({
       type: AUTH_SIGN_OUT,
-      payload: "",
+      // payload: "",
     });
   };
 };
@@ -95,7 +95,7 @@ export const oauthGoogle = (data) => {
 
     dispatch({
       type: AUTH_SIGN_UP,
-      payload: res.data.token,
+      // payload: res.data.token,
     });
 
     // localStorage.setItem("JWT_TOKEN", res.data.token);
@@ -140,7 +140,7 @@ export const oauthFacebook = (data) => {
 
     dispatch({
       type: AUTH_SIGN_UP,
-      payload: res.data.token,
+      // payload: res.data.token,
     });
 
     // localStorage.setItem("JWT_TOKEN", res.data.token);

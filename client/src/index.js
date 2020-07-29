@@ -24,6 +24,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+// Beacuse http Only request we need to fire off on app load to the BackEnd to check if user is authenticated
+
 ReactDOM.render(
   <Provider
     store={createStore(

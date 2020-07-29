@@ -7,7 +7,7 @@ import {
 
 const DEFAULT_STATE = {
   isAuthenticated: false,
-  token: "",
+  // token: "",
   // methods: [],
   errorMessage: "",
 };
@@ -19,7 +19,7 @@ const authReducer = (state = DEFAULT_STATE, action) => {
 
       return {
         ...state,
-        token: action.payload.token,
+        // token: action.payload.token,
         isAuthenticated: true,
         errorMessage: "",
       };
@@ -27,14 +27,14 @@ const authReducer = (state = DEFAULT_STATE, action) => {
       console.log("[Auth Reducer] AUTH_SIGN_IN reducer called");
       return {
         ...state,
-        token: action.payload.token,
+        // token: action.payload.token,
         isAuthenticated: true,
         errorMessage: "",
       };
     case AUTH_SIGN_OUT:
       return {
         ...state,
-        token: action.payload.token,
+        // token: action.payload.token,
         isAuthenticated: false,
         errorMessage: "",
       };

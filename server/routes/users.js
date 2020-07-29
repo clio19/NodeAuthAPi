@@ -61,6 +61,7 @@ router.route("/secret").get(passportJWT, UsersController.secret);
 
 router.route("/dashboard").get(passportJWT, UsersController.dashboard);
 
+// on app loads check this method
 router.route("/status").get(passportJWT, UsersController.checkAuth);
 
 module.exports = router;
