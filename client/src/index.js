@@ -18,18 +18,21 @@ import reducers from "./redux/reducers";
 import authGuard from "./components/HOC/authGuard";
 import axios from "axios";
 
-const jwtToken = localStorage.getItem("JWT_TOKEN");
-axios.defaults.headers.common["Authorization"] = jwtToken;
+// Localstorage
+// const jwtToken = localStorage.getItem("JWT_TOKEN");
+// axios.defaults.headers.common["Authorization"] = jwtToken;
+
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <Provider
     store={createStore(
       reducers,
       {
-        auth: {
-          token: jwtToken,
-          isAuthenticated: jwtToken ? true : false,
-        },
+        // auth: {
+        //   token: jwtToken,
+        //   isAuthenticated: jwtToken ? true : false,
+        // },
       },
       applyMiddleware(reduxThunk)
     )}

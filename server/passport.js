@@ -7,6 +7,15 @@ const FacebookTokenStrategy = require("passport-facebook-token");
 
 const config = require("./configuration");
 const User = require("./models/user");
+
+const cookieExtrctor = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    console.log("req.cookies", req.cookies);
+    token = req.cookies["access_token"];
+  }
+  return token;
+};
 // JSON WEB TOKENS STRATEGY
 passport.use(
   new JwtStrategy(

@@ -26,7 +26,9 @@ module.exports = {
     }
 
     // Is there a Google account with the same email?
-    foundUser = await User.findOne({ "google.email": email });
+    foundUser = await User.findOne({
+      or$: [{ "google.email": email }, { "facebook.email": email }],
+    });
     if (foundUser) {
       // Let's merge them?
       foundUser.methods.push("local");
@@ -37,25 +39,28 @@ module.exports = {
       await foundUser.save();
       // Generate the token
       const token = signToken(foundUser);
+      res.cookie("access_token", token, {
+        httpOnly: true, // To disable javascript access to cookies
+      });
       // Respond with token
-      res.status(200).json({ token });
+      res.status(200).json({ success: true });
     }
 
     // Is there a Google account with the same email?
-    foundUser = await User.findOne({ "facebook.email": email });
-    if (foundUser) {
-      // Let's merge them?
-      foundUser.methods.push("local");
-      foundUser.local = {
-        email: email,
-        password: password,
-      };
-      await foundUser.save();
-      // Generate the token
-      const token = signToken(foundUser);
-      // Respond with token
-      res.status(200).json({ token });
-    }
+    // foundUser = await User.findOne({ "facebook.email": email});
+    // if (foundUser) {
+    //   // Let's merge them?
+    //   foundUser.methods.push("local");
+    //   foundUser.local = {
+    //     email: email,
+    //     password: password,
+    //   };
+    //   await foundUser.save();
+    //   // Generate the token
+    //   const token = signToken(foundUser);
+    //   // Respond with token
+    //   res.status(200).json({ token });
+    // }
 
     // Create a new user
     const newUser = new User({
@@ -71,17 +76,20 @@ module.exports = {
     // Generate the token
     const token = signToken(newUser);
     // Respond with token
+    // and now cookie
+    res.cookie("access_token", token);
+
     res.status(200).json({ token });
   },
 
   signIn: async (req, res, next) => {
     // Generate token
     const token = signToken(req.user);
-    res.status(200).json({ token });
-    // res.cookie("access_token", token, {
-    //   httpOnly: true,
-    // });
-    // res.status(200).json({ success: true });
+    res.cookie("access_token", token, {
+      httpOnly: true,
+    });
+    res.status(200).json({ success: true });
+    // res.status(200).json({ token });
   },
 
   signOut: async (req, res, next) => {
@@ -96,6 +104,7 @@ module.exports = {
     res.cookie("access_token", token, {
       httpOnly: true,
     });
+    // res.cookie("access_token", token);
     res.status(200).json({ success: true });
   },
 
@@ -165,15 +174,15 @@ module.exports = {
   },
 
   dashboard: async (req, res, next) => {
-    console.log("I managed to get here!");
+    console.log("I am here!");
     res.json({
-      secret: "resource",
+      secret: "my secret resource",
       methods: req.user.methods,
     });
   },
 
   checkAuth: async (req, res, next) => {
-    console.log("I managed to get here!");
+    console.log("I managed to get here then i am authenticated!");
     res.json({ success: true });
   },
 

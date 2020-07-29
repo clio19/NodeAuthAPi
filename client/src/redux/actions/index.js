@@ -26,7 +26,13 @@ export const signUp = (data) => {
   return async (dispatch) => {
     try {
       console.log("[action creator] called");
-      const res = await axios.post("http://localhost:5000/users/signup", data);
+      const res = await axios.post(
+        "http://localhost:5000/users/signup",
+        data
+        // , {
+        //   withCredentials: true,
+        // }  do not need because on index axios.defaults.withCredentials = true;
+      );
       console.log("res", res);
 
       console.log("[action creator] dispatched called");
@@ -35,7 +41,7 @@ export const signUp = (data) => {
         payload: res.data.token,
       });
 
-      localStorage.setItem("JWT_TOKEN", res.data.token);
+      // localStorage.setItem("JWT_TOKEN", res.data.token);
     } catch (err) {
       console.log("====================================");
       console.log(err.message);
@@ -50,7 +56,7 @@ export const signUp = (data) => {
 
 export const signOut = () => {
   return (dispatch) => {
-    localStorage.removeItem("JWT_TOKEN");
+    // localStorage.removeItem("JWT_TOKEN");
 
     dispatch({
       type: AUTH_SIGN_OUT,
@@ -69,8 +75,8 @@ export const signIn = (data) => {
         payload: res.data.token,
       });
 
-      localStorage.setItem("JWT_TOKEN", res.data.token);
-      axios.defaults.headers.common["Authorization"] = res.data.token;
+      // localStorage.setItem("JWT_TOKEN", res.data.token);
+      // axios.defaults.headers.common["Authorization"] = res.data.token;
     } catch (err) {
       console.log("ERROR !", err);
       dispatch({
@@ -92,8 +98,8 @@ export const oauthGoogle = (data) => {
       payload: res.data.token,
     });
 
-    localStorage.setItem("JWT_TOKEN", res.data.token);
-    axios.defaults.headers.common["Authorization"] = res.data.token;
+    // localStorage.setItem("JWT_TOKEN", res.data.token);
+    // axios.defaults.headers.common["Authorization"] = res.data.token;
   };
 };
 
@@ -137,8 +143,8 @@ export const oauthFacebook = (data) => {
       payload: res.data.token,
     });
 
-    localStorage.setItem("JWT_TOKEN", res.data.token);
-    axios.defaults.headers.common["Authorization"] = res.data.token;
+    // localStorage.setItem("JWT_TOKEN", res.data.token);
+    // axios.defaults.headers.common["Authorization"] = res.data.token;
   };
 };
 export const linkFacebook = (data) => {
@@ -185,6 +191,7 @@ export const getSecret = () => {
   };
 };
 
+// to check Authentication
 export const checkAuth = () => {
   return async (dispatch) => {
     try {
