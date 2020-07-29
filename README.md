@@ -11,6 +11,8 @@ E - Express
 R - React
 N - NodeJS
 
+[![Build Status](https://api.travis-ci.org/clio19/NodeAuthAPi.svg?branch=master)](https://travis-ci.org/clio19/NodeAuthAPi)
+
 This is the project files for tecdreams's API Authentication with Node.
 
 - [x] Phase I - Backend
